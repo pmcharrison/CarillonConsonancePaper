@@ -1,0 +1,7 @@
+awaiting_async_process,vars,id,creation_time,failed,failed_reason,time_of_death,type,network_id,participant_id,trial_maker_id,module_id,_on_create_called,_on_deploy_called,ready_for_trials,key,degree,child_id,parent_id,seed,definition,context,participant_group,block,propagate_failure,n_viable_trials,class,object_type
+False,{},1,2023-02-16 16:47:46,False,,,TrialSource,1,,headphone_test,headphone_test,True,False,True,,0,,,{},"{'label': 'ISO', 'correct_answer': '2'}",,default,default,False,108,Node,Node
+False,{},2,2023-02-16 16:47:46,False,,,TrialSource,2,,headphone_test,headphone_test,True,False,True,,0,,,{},"{'label': 'IOS', 'correct_answer': '3'}",,default,default,False,108,Node,Node
+False,{},3,2023-02-16 16:47:46,False,,,TrialSource,3,,headphone_test,headphone_test,True,False,True,,0,,,{},"{'label': 'SOI', 'correct_answer': '1'}",,default,default,False,109,Node,Node
+False,{},4,2023-02-16 16:47:46,False,,,TrialSource,4,,headphone_test,headphone_test,True,False,True,,0,,,{},"{'label': 'SIO', 'correct_answer': '1'}",,default,default,False,108,Node,Node
+False,{},5,2023-02-16 16:47:46,False,,,TrialSource,5,,headphone_test,headphone_test,True,False,True,,0,,,{},"{'label': 'OSI', 'correct_answer': '2'}",,default,default,False,108,Node,Node
+False,{},6,2023-02-16 16:47:46,False,,,TrialSource,6,,headphone_test,headphone_test,True,False,True,,0,,,{},"{'label': 'OIS', 'correct_answer': '3'}",,default,default,False,108,Node,Node

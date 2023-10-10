@@ -1,0 +1,7 @@
+vars,creation_time,label,node_id,asset_key,type,class,object_type
+{},2023-02-16 16:47:46,stimulus,1,headphone_test/nodes/node_1__stimulus,AssetNode,AssetNode,AssetNode
+{},2023-02-16 16:47:46,stimulus,2,headphone_test/nodes/node_2__stimulus,AssetNode,AssetNode,AssetNode
+{},2023-02-16 16:47:46,stimulus,3,headphone_test/nodes/node_3__stimulus,AssetNode,AssetNode,AssetNode
+{},2023-02-16 16:47:46,stimulus,4,headphone_test/nodes/node_4__stimulus,AssetNode,AssetNode,AssetNode
+{},2023-02-16 16:47:46,stimulus,5,headphone_test/nodes/node_5__stimulus,AssetNode,AssetNode,AssetNode
+{},2023-02-16 16:47:46,stimulus,6,headphone_test/nodes/node_6__stimulus,AssetNode,AssetNode,AssetNode

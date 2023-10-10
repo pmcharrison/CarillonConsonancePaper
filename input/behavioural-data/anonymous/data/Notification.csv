@@ -1,0 +1,170 @@
+id,creation_time,failed,failed_reason,time_of_death,property1,property2,property3,property4,property5,details,class
+1,2023-02-16 17:04:25.991716,False,,,,,,,,"{'feedback': 'I tried to refresh the page after disabling the ad blocker', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+2,2023-02-16 17:09:20.920482,False,,,,,,,,{},Notification
+3,2023-02-16 17:09:28.875347,False,,,,,,,,{},Notification
+4,2023-02-16 17:11:33.554489,False,,,,,,,,{},Notification
+5,2023-02-16 17:11:37.892064,False,,,,,,,,{},Notification
+6,2023-02-16 17:17:17.489955,False,,,,,,,,{},Notification
+7,2023-02-16 17:19:24.478312,False,,,,,,,,{},Notification
+8,2023-02-16 17:20:18.597480,False,,,,,,,,{},Notification
+9,2023-02-16 17:21:55.701017,False,,,,,,,,{},Notification
+10,2023-02-16 17:25:25.224911,False,,,,,,,,{},Notification
+11,2023-02-16 17:26:47.447550,False,,,,,,,,"{'feedback': 'I have had to change devices due to technical difficulties with my other computer.', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+12,2023-02-16 17:27:29.472937,False,,,,,,,,{},Notification
+13,2023-02-16 17:33:36.966659,False,,,,,,,,{},Notification
+14,2023-02-16 17:33:42.346597,False,,,,,,,,{},Notification
+15,2023-02-16 17:36:17.230124,False,,,,,,,,"{'feedback': 'Study would not let me proceed to the audio the next button was not active. ', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+16,2023-02-16 17:37:35.690179,False,,,,,,,,"{'feedback': 'No audio - my audio and internet connection are fine', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+17,2023-02-16 17:38:30.333035,False,,,,,,,,"{'feedback': 'it got stuck and did not let me to press next', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+18,2023-02-16 17:42:53.192895,False,,,,,,,,{},Notification
+19,2023-02-16 17:43:13.475629,False,,,,,,,,{},Notification
+20,2023-02-16 17:46:23.216461,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+21,2023-02-16 17:53:06.172409,False,,,,,,,,{},Notification
+22,2023-02-16 17:54:25.342310,False,,,,,,,,{},Notification
+23,2023-02-16 18:03:54.191198,False,,,,,,,,{},Notification
+24,2023-02-16 18:05:41.634414,False,,,,,,,,{},Notification
+25,2023-02-16 18:07:18.935289,False,,,,,,,,"{'feedback': 'does not work', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+26,2023-02-16 18:08:04.049960,False,,,,,,,,"{'feedback': ""I connected my airpods but when it said I should hear a sound there wasn't one"", 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+27,2023-02-16 18:08:11.629134,False,,,,,,,,"{'feedback': 'when it said to make sure headphones are plugged in, i plugged mine in and it said to listen to a sound to check volume. It crashed', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+28,2023-02-16 18:08:25.237884,False,,,,,,,,"{'feedback': 'I disable pop up blockers and it just froze so I refreshed it and it led to an error message.', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+29,2023-02-16 18:08:49.299369,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+30,2023-02-16 18:10:49.582603,False,,,,,,,,"{'feedback': 'No sound', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+31,2023-02-16 18:11:12.075985,False,,,,,,,,{},Notification
+32,2023-02-16 18:11:22.112166,False,,,,,,,,"{'feedback': ""I could not go onto the next page when pressing the button 'Next'.  it got stuck.  i tried to refresh and this came up."", 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+33,2023-02-16 18:12:18.047733,False,,,,,,,,"{'feedback': 'The page with the audio test froze up on me', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+34,2023-02-16 18:12:24.282803,False,,,,,,,,"{'feedback': 'I tried to reload the page to hear the audio.', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+35,2023-02-16 18:12:34.586350,False,,,,,,,,{},Notification
+36,2023-02-16 18:12:50.954411,False,,,,,,,,"{'feedback': ""Next button didn't work and couldn't hear any sound"", 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+37,2023-02-16 18:13:24.171752,False,,,,,,,,"{'feedback': 'Cant Hear the sound', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+38,2023-02-16 18:13:26.250897,False,,,,,,,,{},Notification
+39,2023-02-16 18:14:23.266456,False,,,,,,,,{},Notification
+40,2023-02-16 18:15:14.707941,False,,,,,,,,{},Notification
+41,2023-02-16 18:16:14.906271,False,,,,,,,,{},Notification
+42,2023-02-16 18:16:19.691877,False,,,,,,,,"{'feedback': 'I could not hear a sound so hit refresh.', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+43,2023-02-16 18:16:26.447965,False,,,,,,,,{},Notification
+44,2023-02-16 18:16:37.630205,False,,,,,,,,{},Notification
+45,2023-02-16 18:17:04.514891,False,,,,,,,,{},Notification
+46,2023-02-16 18:17:57.584319,False,,,,,,,,{},Notification
+47,2023-02-16 18:18:19.623085,False,,,,,,,,{},Notification
+48,2023-02-16 18:19:43.725320,False,,,,,,,,{},Notification
+49,2023-02-16 18:19:56.408508,False,,,,,,,,"{'feedback': 'link did not work', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+50,2023-02-16 18:20:04.886749,False,,,,,,,,{},Notification
+51,2023-02-16 18:21:22.329506,False,,,,,,,,{},Notification
+52,2023-02-16 18:21:23.177188,False,,,,,,,,{},Notification
+53,2023-02-16 18:21:42.136123,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+54,2023-02-16 18:23:36.802332,False,,,,,,,,{},Notification
+55,2023-02-16 18:25:04.837644,False,,,,,,,,{},Notification
+56,2023-02-16 18:25:38.969560,False,,,,,,,,{},Notification
+57,2023-02-16 18:25:48.058773,False,,,,,,,,{},Notification
+58,2023-02-16 19:48:21.153125,False,,,,,,,,"{'feedback': 'Cannot hear anything', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+59,2023-02-16 19:48:29.076892,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+60,2023-02-16 19:50:04.778505,False,,,,,,,,"{'feedback': 'No idea sorry it just did not load.', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+61,2023-02-16 19:50:29.742065,False,,,,,,,,"{'feedback': 'I was not able to click on the button to move on to the test sound so I refreshed the page as per the help section and was given this error. ', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+62,2023-02-16 19:50:42.656759,False,,,,,,,,"{'feedback': ""I could not hear any sound although my earphones were plugged in. I tried refreshing the page but it didn't help. I opened the study in a new window and found this page. "", 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+63,2023-02-16 19:50:47.659209,False,,,,,,,,"{'feedback': 'survey never showed me how to play the test sounds', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+64,2023-02-16 19:52:27.071261,False,,,,,,,,{},Notification
+65,2023-02-16 19:53:11.704144,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+66,2023-02-16 19:53:27.000858,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+67,2023-02-16 19:53:32.507220,False,,,,,,,,{},Notification
+68,2023-02-16 19:54:09.050352,False,,,,,,,,{},Notification
+69,2023-02-16 19:54:13.982431,False,,,,,,,,"{'feedback': 'no sound plays.   My volume is high and there are no internet issues', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+70,2023-02-16 19:54:15.137559,False,,,,,,,,"{'feedback': 'I honestly do not know the page would not move on', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+71,2023-02-16 19:54:26.304648,False,,,,,,,,{},Notification
+72,2023-02-16 19:56:01.102066,False,,,,,,,,{},Notification
+73,2023-02-16 19:56:02.773415,False,,,,,,,,"{'feedback': 'I click the button ""begin the study "" and the study stopped working and crashed.', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+74,2023-02-16 19:56:22.802364,False,,,,,,,,{},Notification
+75,2023-02-16 19:56:33.630633,False,,,,,,,,{},Notification
+76,2023-02-16 19:56:59.236523,False,,,,,,,,{},Notification
+77,2023-02-16 19:57:08.157145,False,,,,,,,,"{'feedback': ""I tried to refresh the page as I couldn't hear the sound and got this error message "", 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+78,2023-02-16 19:58:21.479807,False,,,,,,,,{},Notification
+79,2023-02-16 19:58:36.187516,False,,,,,,,,{},Notification
+80,2023-02-16 19:58:39.621052,False,,,,,,,,{},Notification
+81,2023-02-16 19:58:46.741925,False,,,,,,,,{},Notification
+82,2023-02-16 19:58:57.419504,False,,,,,,,,{},Notification
+83,2023-02-16 19:59:09.462534,False,,,,,,,,{},Notification
+84,2023-02-16 19:59:31.978065,False,,,,,,,,{},Notification
+85,2023-02-16 19:59:34.103905,False,,,,,,,,{},Notification
+86,2023-02-16 20:01:03.091173,False,,,,,,,,{},Notification
+87,2023-02-16 20:01:07.996860,False,,,,,,,,{},Notification
+88,2023-02-16 20:01:28.255661,False,,,,,,,,"{'feedback': 'I did not hear the note I was supposed to hear so tried to refresh the page but was unsure what I was doing', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+89,2023-02-16 20:01:41.035329,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+90,2023-02-16 20:02:08.920141,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+91,2023-02-16 20:02:45.882991,False,,,,,,,,"{'feedback': 'I never got past the audio test my device and headphones work perfectly. The error is at your end.', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+92,2023-02-16 20:03:18.736690,False,,,,,,,,{},Notification
+93,2023-02-16 20:03:53.721481,False,,,,,,,,"{'feedback': 'It froze', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+94,2023-02-16 20:04:33.534904,False,,,,,,,,"{'feedback': 'Could not here the sound, tried refreashing.', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+95,2023-02-16 20:05:21.757470,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+96,2023-02-16 20:06:54.700535,False,,,,,,,,"{'feedback': ""Audio wouldn't load so closed and refreshed this page to try and reopen experiment."", 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+97,2023-02-16 20:07:42.253225,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+98,2023-02-16 20:08:25.169620,False,,,,,,,,{},Notification
+99,2023-02-16 20:08:28.281373,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+100,2023-02-16 20:08:32.964480,False,,,,,,,,"{'feedback': 'The sound would not load and so I tried to reload the page', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+101,2023-02-16 20:08:46.003223,False,,,,,,,,{},Notification
+102,2023-02-16 20:08:57.037018,False,,,,,,,,{},Notification
+103,2023-02-16 20:09:02.208295,False,,,,,,,,{},Notification
+104,2023-02-16 20:09:37.953866,False,,,,,,,,"{'feedback': 'the page couldnt refresh', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+105,2023-02-16 20:09:56.378746,False,,,,,,,,{},Notification
+106,2023-02-16 20:10:54.311969,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+107,2023-02-16 20:10:56.706368,False,,,,,,,,{},Notification
+108,2023-02-16 20:11:09.912450,False,,,,,,,,{},Notification
+109,2023-02-16 20:11:17.068414,False,,,,,,,,{},Notification
+110,2023-02-16 20:11:39.616889,False,,,,,,,,{},Notification
+111,2023-02-16 20:11:49.159143,False,,,,,,,,{},Notification
+112,2023-02-16 20:12:18.481821,False,,,,,,,,{},Notification
+113,2023-02-16 20:13:26.905108,False,,,,,,,,{},Notification
+114,2023-02-16 20:15:44.594059,False,,,,,,,,"{'feedback': 'Hi. I tapped on the study as directed and was directed to the next page, however the study did not commence. The page shown was blank!\r\nRegards', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+115,2023-02-16 20:15:59.733855,False,,,,,,,,{},Notification
+116,2023-02-16 20:16:03.410187,False,,,,,,,,"{'feedback': 'I tested my bluetooth headphones and they were Ok but when the initial test came on it could still be heard very clearly on my laptop. Bu the three sounds I was supposed to hear next could not be heard on the headphones or the laptop. I tried to play them again by refreshing the page but was given this error page.', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+117,2023-02-16 20:16:30.578701,False,,,,,,,,{},Notification
+118,2023-02-16 20:17:47.329707,False,,,,,,,,{},Notification
+119,2023-02-16 20:17:48.032205,False,,,,,,,,"{'feedback': 'it said error please refresh but this message came up', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+120,2023-02-16 20:18:32.216774,False,,,,,,,,{},Notification
+121,2023-02-16 20:21:47.678522,False,,,,,,,,"{'feedback': ""It got to 5% and then I couldn't hear any sound, despite reloading page and wouldn't let me click 'next'"", 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+122,2023-02-16 20:21:54.844759,False,,,,,,,,"{'feedback': ""Study never started, screen was stuck on 'starting experiment'"", 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+123,2023-02-16 20:21:58.048021,False,,,,,,,,"{'feedback': 'the blue buttons stopped being responsive', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+124,2023-02-16 20:24:11.680956,False,,,,,,,,"{'feedback': 'connected ear phones but experiement still would not begin', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+125,2023-02-16 20:24:59.336465,False,,,,,,,,{},Notification
+126,2023-02-16 20:25:19.341405,False,,,,,,,,{},Notification
+127,2023-02-16 20:26:17.599800,False,,,,,,,,{},Notification
+128,2023-02-16 20:27:32.314390,False,,,,,,,,{},Notification
+129,2023-02-16 20:28:15.700931,False,,,,,,,,{},Notification
+130,2023-02-16 20:28:22.665740,False,,,,,,,,{},Notification
+131,2023-02-16 20:28:40.296089,False,,,,,,,,{},Notification
+132,2023-02-16 20:30:03.825985,False,,,,,,,,{},Notification
+133,2023-02-16 20:30:29.587858,False,,,,,,,,{},Notification
+134,2023-02-16 20:31:26.546578,False,,,,,,,,"{'feedback': 'internal server error', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+135,2023-02-16 20:31:38.929301,False,,,,,,,,{},Notification
+136,2023-02-16 20:32:22.562195,False,,,,,,,,{},Notification
+137,2023-02-16 20:32:33.473736,False,,,,,,,,"{'feedback': 'After following the steps noted i clicked refresh to listen to the audio and the page got stuck on a starting experiment screen. attempting to reload the page brought me to the error screen. ', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+138,2023-02-16 20:34:52.726292,False,,,,,,,,"{'feedback': 'It was on the page where the audio was supposed to play, it blamed my internet connection but I have never had such an issue before in a study. I switched to Chrome and disabled Ublock to run the study but the issue was then with the audio not playing back', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+139,2023-02-16 20:35:16.577643,False,,,,,,,,"{'feedback': 'I submitted feedback and it failed?', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+140,2023-02-16 20:36:08.400317,False,,,,,,,,{},Notification
+141,2023-02-16 20:37:04.906042,False,,,,,,,,"{'feedback': 'The audio did not play on your survey test', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+142,2023-02-16 20:37:04.935730,False,,,,,,,,{},Notification
+143,2023-02-16 20:39:45.278102,False,,,,,,,,{},Notification
+144,2023-02-16 20:40:06.124603,False,,,,,,,,{},Notification
+145,2023-02-16 20:40:56.176436,False,,,,,,,,{},Notification
+146,2023-02-16 20:42:00.835384,False,,,,,,,,"{'feedback': '', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+147,2023-02-16 20:43:35.907184,False,,,,,,,,"{'feedback': 'https://consonance-carillon.131.111.166.25.nip.io/timeline?participant_id=217&auth_token=28d2ca2a-63c9-4938-88e0-54d544f78db2 is not loading.  ', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+148,2023-02-16 20:43:43.168369,False,,,,,,,,"{'feedback': ""the page didn't resume, it got stuck"", 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+149,2023-02-16 20:43:48.971903,False,,,,,,,,"{'feedback': 'https://consonance-carillon.131.111.166.25.nip.io/timeline?participant_id=217&auth_token=28d2ca2a-63c9-4938-88e0-54d544f78db2 is not loading.  ', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+150,2023-02-16 20:44:10.339572,False,,,,,,,,{},Notification
+151,2023-02-16 20:44:15.428581,False,,,,,,,,"{'feedback': 'The next button was greyed out', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+152,2023-02-16 20:45:37.488814,False,,,,,,,,{},Notification
+153,2023-02-16 20:46:58.910956,False,,,,,,,,{},Notification
+154,2023-02-16 20:47:58.282866,False,,,,,,,,{},Notification
+155,2023-02-16 20:48:13.553433,False,,,,,,,,{},Notification
+156,2023-02-16 20:49:24.763696,False,,,,,,,,{},Notification
+157,2023-02-16 20:49:30.941590,False,,,,,,,,{},Notification
+158,2023-02-16 20:50:16.439782,False,,,,,,,,{},Notification
+159,2023-02-16 20:52:39.411619,False,,,,,,,,{},Notification
+160,2023-02-16 20:52:48.877810,False,,,,,,,,{},Notification
+161,2023-02-16 20:53:47.813330,False,,,,,,,,{},Notification
+162,2023-02-16 20:56:48.981059,False,,,,,,,,{},Notification
+163,2023-02-16 20:59:51.048464,False,,,,,,,,{},Notification
+164,2023-02-16 21:01:45.932212,False,,,,,,,,{},Notification
+165,2023-02-16 21:04:59.205499,False,,,,,,,,{},Notification
+166,2023-02-16 21:06:11.612280,False,,,,,,,,{},Notification
+167,2023-02-16 21:08:21.955472,False,,,,,,,,{},Notification
+168,2023-02-16 21:21:44.004574,False,,,,,,,,"{'feedback': 'There is no audio.', 'error_text': 'There has been an error and so you are unable to continue, sorry!', 'error_type': 'already_did_exp_hit', 'request_data': {'hit_id': None, 'worker_id': None, 'participant_id': None}}",Notification
+169,2023-02-16 21:31:28.587902,False,,,,,,,,{},Notification

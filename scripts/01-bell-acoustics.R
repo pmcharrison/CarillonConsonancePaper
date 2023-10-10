@@ -42,6 +42,48 @@ partial_labels <- tribble(
 ) |> 
   add_column()
 
+# Plotting an example spectrum
+
+df_f0 <- df |> filter(Partial == 1) |> select(Bell, Frequency) |> mutate(Frequency = Frequency )
+
+get_spectrum <- function(bell) {
+  file <- sprintf("input/bell-samples/%s.wav", bell)
+  wav <- tuneR::readWave(file)
+  f0 <- df_f0 |> filter(Bell == !!bell) |> pull(Frequency)
+  stopifnot(length(f0) == 1)
+  
+  spec <- 
+    seewave::meanspec(wav, dB = 'max0', main = 'Spectrum', wl = 2^14) |> 
+    as_tibble() |> 
+    transmute(Hz = x * 1000, dB = y) |> 
+    transmute(
+      bell = bell, 
+      Hz = Hz, 
+      freq_ratio = Hz / (f0 * 2 ), # seems necessary for expressing relative to prime
+      dB = dB
+    )
+  
+  spec
+}
+
+bell <- "40-e3"
+df_spectrum <- get_spectrum(bell)
+
+df_spectrum |> 
+  filter(freq_ratio <= 7) |>
+  ggplot(aes(Hz, dB)) + 
+  geom_line() + 
+  scale_x_continuous(
+    "Frequency (Hz)",
+    sec.axis = sec_axis(
+      ~ . / df_f0 |> filter(Bell == !!bell) |> pull(Frequency) |> magrittr::multiply_by(2),
+      name = "Frequency ratio",
+    )
+  ) + 
+  scale_y_continuous("Level (dB)")
+
+
+# Plotting frequencies ####
 plot_freq <- 
   df |> 
   ggplot(aes(
@@ -61,7 +103,12 @@ plot_freq <-
     "Frequency ratio",
     limits = c(0.4, 8.5),
     breaks = seq(from = 0, to = 7, by = 1), 
-    minor_breaks = seq(from = 0, to = 7, by = 0.5)
+    minor_breaks = seq(from = 0, to = 7, by = 0.5),
+    sec.axis = sec_axis(
+      ~ log2(.) * 12,
+      breaks = 4 * 0:8,
+      name = "Interval above the prime (semitones)"
+    )
   ) + 
   scale_y_discrete(NULL) +
   scale_colour_viridis_d(option = "magma", end = 0.8) +
@@ -75,13 +122,8 @@ plot_freq <-
   )
 
 plot_freq
-# ggsave("output/spectral-analysis-by-partial.png", width = 6.5, height = 4.5, dpi = 200)
 
-
-# filter(
-#   #F0 < 320
-# )
-
+# Plotting amplitudes ####
 summarise_amplitudes <- function(data) {
   reference_amplitude <- 
     data |> 
@@ -112,7 +154,7 @@ plot_amp <-
   geom_bar(stat = "identity", fill = "white", colour = "black") + 
   geom_errorbar(width = 0.25) + 
   scale_x_discrete(labels = partial_labels$PartialLabel) +
-  scale_y_continuous("Amplitude", breaks = seq(from = 0, to = 1, by = 0.1)) +
+  scale_y_continuous("Amplitude", breaks = seq(from = 0, to = 1.25, by = 0.25)) +
   coord_flip()
 
 
@@ -127,6 +169,8 @@ cowplot::plot_grid(
   nrow = 1
 )
 
+ggsave("output/figure-2.pdf", width = 10, height = 4)
+
 
 # Splitting by frequency range
 bind_rows(
@@ -137,7 +181,10 @@ bind_rows(
   geom_bar(stat = "identity", fill = "white", colour = "black") + 
   geom_errorbar(width = 0.25) + 
   scale_x_discrete(labels = partial_labels$PartialLabel) +
-  scale_y_continuous("Amplitude", breaks = seq(from = 0, to = 1, by = 0.1)) +
+  scale_y_continuous("Amplitude", breaks = seq(from = 0, to = 1.25, by = 0.25)) +
   coord_flip() + 
-  facet_wrap(~ range, nrow = 1, scales = "free_x")
+  facet_wrap(~ range, nrow = 1, scales = "free_x") +
+  tmp_theme
+
+ggsave("output/figure-3.pdf", width = 10, height = 4)
 

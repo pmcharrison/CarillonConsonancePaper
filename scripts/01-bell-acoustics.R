@@ -5,25 +5,7 @@ library(ggridges)
 
 theme_set(theme_pubr())
 
-df <- 
-  read_excel("input/bell-peaks.xlsx", sheet = "ALL DATA - with Partials")
-
-df <-
-  df |> 
-  left_join(
-    df |> filter(Partial == "1") |> select(Bell = Bell, F0 = Frequency), 
-    by = "Bell"
-  ) |> 
-  mutate(
-    FrequencyRatio = Frequency / F0,
-    Partial = recode(
-      Partial,
-      "~3.3" = "3.33",
-      "~6.667" = "6.67",
-      "~5.334" = "5.33",
-      "4 - 4.2" = "4.0",
-    )
-  )
+df <- import_bell_peaks()
 
 partial_labels <- tribble(
   ~ Partial,   ~ PartialLabel,
@@ -84,7 +66,9 @@ plot_example_spectrum <-
   ) + 
   scale_y_continuous("Level (dB)")
 
-# Plotting an average of all spectrum
+# Plotting an average of all spectra
+
+bells <- unique(df$Bell)
 
 df_spectra <- 
   map_dfr(bells, get_spectrum, .progress = TRUE)
@@ -135,6 +119,7 @@ ggsave("output/figure-1.pdf", width = 10, height = 6)
 # Plotting frequencies ####
 plot_freq <- 
   df |> 
+  filter(!is.na(FrequencyRatio)) |> 
   ggplot(aes(
     x = FrequencyRatio,
     y = factor(Partial),
@@ -149,7 +134,7 @@ plot_freq <-
     
   ) +
   scale_x_continuous(
-    "Frequency ratio",
+    "Frequency ratio to the prime",
     limits = c(0.4, 8.5),
     breaks = 0:7, 
     minor_breaks = seq(from = 0, to = 7, by = 0.5),
@@ -186,12 +171,12 @@ summarise_amplitudes <- function(data) {
       Amplitude = Amplitude / reference_amplitude
     ) |> 
     group_by(Partial) |> 
-    summarise(
+    dplyr::summarise(
       partial_label = unique(PartialLabel),
       amplitude_mean = mean(Amplitude, na.rm = TRUE),
       amplitude_n = sum(!is.na(Amplitude)),
-      ampltitude_sd = sd(Amplitude, na.rm = TRUE),
-      amplitude_se = ampltitude_sd / sqrt(amplitude_n)
+      amplitude_sd = sd(Amplitude, na.rm = TRUE),
+      amplitude_se = amplitude_sd / sqrt(amplitude_n)
     ) |> 
     ungroup() 
 }
@@ -242,4 +227,3 @@ bind_rows(
   tmp_theme
 
 ggsave("output/figure-3.pdf", width = 10, height = 4)
-

@@ -123,11 +123,13 @@ plot_behavioural_profiles <-
   scale_colour_manual(NULL, values = c("blue", "grey40")) + 
   scale_linewidth_manual(NULL, values = c(0.7, 0.4)) +
   scale_linetype_discrete(NULL) + 
+  guides(color = guide_legend(override.aes = list(fill = NA))) +
   theme(
     legend.position = c(0.2, 0.95),
     legend.direction = "vertical",
     plot.margin = unit(c(20, 4, 4, 4), units = "pt")
   )
+plot_behavioural_profiles
 
 # ggsave("output/behavioural-profiles.png", width = 6.5, height = 4.5, dpi = 200)
 

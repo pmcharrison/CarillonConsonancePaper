@@ -69,7 +69,8 @@ get_spectrum <- function(bell) {
 bell <- "40-e3"
 df_spectrum <- get_spectrum(bell)
 
-df_spectrum |> 
+plot_example_spectrum <-
+  df_spectrum |> 
   filter(freq_ratio <= 7) |>
   ggplot(aes(Hz, dB)) + 
   geom_line() + 
@@ -77,10 +78,58 @@ df_spectrum |>
     "Frequency (Hz)",
     sec.axis = sec_axis(
       ~ . / df_f0 |> filter(Bell == !!bell) |> pull(Frequency) |> magrittr::multiply_by(2),
-      name = "Frequency ratio",
+      name = "Frequency ratio to the prime",
+      breaks = 0:7,
     )
   ) + 
   scale_y_continuous("Level (dB)")
+
+# Plotting an average of all spectrum
+
+df_spectra <- 
+  map_dfr(bells, get_spectrum, .progress = TRUE)
+
+Rcpp::sourceCpp("../../Analysis/smooth_2d_gaussian.cpp")
+
+smooth_x <- seq(from = 0, to = 7, by = 0.01)
+
+smooth_y <- smooth_2d_gaussian(
+  data_x = df_spectra$freq_ratio,
+  data_y = rep(0, times = nrow(df_spectra)),
+  data_val = df_spectra$dB,
+  probe_x = smooth_x,
+  probe_y = length(smooth_x),
+  sigma_x = 0.01,
+  sigma_y = 1
+)
+
+plot_all_spectra <- ggplot(
+  tibble(smooth_x, smooth_y) |> na.omit(),
+  aes(smooth_x, smooth_y)
+) + 
+  geom_line() + 
+  scale_x_continuous(
+    "Frequency ratio to the prime",
+    breaks = 0:7,
+    sec.axis = sec_axis(
+      ~ log2(.) * 12,  # 
+      breaks = c(-12, 4 * 0:8),
+      name = "Interval from the prime (semitones)"
+    )
+  ) + 
+  scale_y_continuous("Level (dB)")
+
+# Combining the two into one plot
+
+cowplot::plot_grid(
+  plot_example_spectrum,
+  plot_all_spectra,
+  ncol = 1,
+  scale = 0.94,
+  labels = "AUTO"
+)
+
+ggsave("output/figure-1.pdf", width = 10, height = 6)
 
 
 # Plotting frequencies ####
@@ -102,11 +151,11 @@ plot_freq <-
   scale_x_continuous(
     "Frequency ratio",
     limits = c(0.4, 8.5),
-    breaks = seq(from = 0, to = 7, by = 1), 
+    breaks = 0:7, 
     minor_breaks = seq(from = 0, to = 7, by = 0.5),
     sec.axis = sec_axis(
       ~ log2(.) * 12,
-      breaks = 4 * 0:8,
+      breaks = c(-12, 4 * 0:8),
       name = "Interval above the prime (semitones)"
     )
   ) + 
@@ -154,7 +203,13 @@ plot_amp <-
   geom_bar(stat = "identity", fill = "white", colour = "black") + 
   geom_errorbar(width = 0.25) + 
   scale_x_discrete(labels = partial_labels$PartialLabel) +
-  scale_y_continuous("Amplitude", breaks = seq(from = 0, to = 1.25, by = 0.25)) +
+  scale_y_continuous(
+    "Amplitude", breaks = seq(from = 0, to = 1.25, by = 0.25),
+    sec.axis = sec_axis(
+      trans = identity, name = "Amplitude",
+      breaks = seq(from = 0, to = 1.25, by = 0.25)
+    )
+  ) +
   coord_flip()
 
 

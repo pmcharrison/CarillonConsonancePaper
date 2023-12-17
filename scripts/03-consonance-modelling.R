@@ -1,5 +1,11 @@
+library(ggpubr)
+library(furrr)
 library(tidyverse)
 library(readxl)
+
+theme_set(theme_pubr())
+
+plan(multisession)
 
 source("src/consonance-utilities.R")
 source("src/import-bell-peaks.R")
@@ -67,39 +73,37 @@ timbres$Harmonic <- list(
 
 model_profiles <- 
   expand_grid(
-    interval = seq(from = 0, to = 15, by = 0.05),
+    interval = seq(from = 0, to = 15, by = 0.01),
     timbre_type = c("Carillon", "Harmonic"),
     model = c("roughness", "harmonicity")
 )
 
 model_profiles$value <- 
-  pmap_dbl(model_profiles, function(interval, timbre_type, model) {
+  future_pmap_dbl(model_profiles, function(interval, timbre_type, model) {
+    if (!exists("COHERENT_WAVES")) source("src/consonance-utilities.R")
     midi <- c(66, 66 + interval)
     MODELS[[model]]$get_consonance(midi, timbre = timbres[[timbre_type]])
-  }, .progress = TRUE)
+  }, .progress = TRUE, .options = furrr_options(seed = TRUE))
   
+
+write_csv(model_profiles, "output/model_profiles.csv")
 
 normalise_to_unit_interval <- function(x) {
   range <- max(x) - min(x)
   (x - min(x)) / range
 }
 
-model_profiles |>  
+plot_models <- 
+  model_profiles |>  
   mutate(
     model = recode(
       model,
       harmonicity = "Harmonicity",
       roughness = "Interference between partials"
     ),
-    # Reverse the minus sign for roughness
-    value = if_else(
-      model == "Interference between partials",
-      - value,
-      value
-    ),
     timbre_type = recode(
       timbre_type,
-      Carillon = "Carillon bell",
+      Carillon = "Carillon bell       ",
       Harmonic = "Harmonic tone"
     )
   ) |> 
@@ -120,16 +124,70 @@ model_profiles |>
     colour = colour
   )) + 
   geom_line() + 
-  facet_wrap(~ model, nrow = 1) +
+  facet_wrap(~ model, ncol = 1) +
   scale_colour_identity(NULL) + 
   scale_linewidth_manual(NULL, values = c(0.7, 0.4)) +
   scale_linetype_discrete(NULL) + 
   scale_x_continuous("Interval (semitones)", breaks = 0:15) + 
   scale_y_continuous("Value") +
   theme(
-    legend.position = c(0.06, 1.3),
-    legend.direction = "vertical",
-    plot.margin = unit(c(60, 4, 4, 4), units = "pt")
+    legend.position = c(0.2, 1.140),
+    legend.direction = "horizontal",
+    plot.margin = unit(c(40, 4, 4, 4), units = "pt")
+  )
+plot_models
+
+carillon_behavioural_profile <- read_csv("output/carillon-behavioural-profile.csv")
+
+df_regression_input <- 
+  model_profiles %>% 
+  filter(timbre_type == "Carillon") %>% 
+  select(- timbre_type) %>% 
+  pivot_wider(id_cols = c("interval"), names_from = "model", values_from = "value") %>%
+  left_join(carillon_behavioural_profile, by = c("interval" = "pitch_interval")) %>% 
+  select(- pleasantness_se) %>% 
+  na.omit() %>% 
+  mutate(
+    pleasantness = as.numeric(scale(pleasantness)),
+    roughness = as.numeric(scale(roughness)),
+    harmonicity = as.numeric(scale(harmonicity))
   )
 
-ggsave("output/figure-5.pdf", width = 10, height = 4)
+mod <- lm(pleasantness ~ roughness + harmonicity, data = df_regression_input)
+summary(mod)
+
+df_regression_predictions <-
+  df_regression_input %>%
+  mutate(regression = predict(mod, newdata = df_regression_input))
+
+plot_regression <- 
+  df_regression_predictions %>% 
+  select(interval, Participants = pleasantness, Model = regression) %>% 
+  pivot_longer(cols = c("Participants", "Model"), names_to = "group") %>% 
+  mutate(
+    group = recode_factor(
+      group,
+      Participants = "Participants",
+      Model = "Combined model",
+    )
+   ) %>% 
+  ggplot(aes(interval, value, colour = group)) +#£, linetype = group)) + 
+  geom_line() +
+  scale_x_continuous("Interval (semitones)", breaks = 0:15) + 
+  scale_y_continuous("Value") +
+  scale_colour_manual(NULL, values = c("lightblue", "black")) +
+  theme(
+    legend.direction = "vertical",
+    legend.position = c(0.2, 0.85)
+  )
+plot_regression
+
+cowplot::plot_grid(
+  plot_models,
+  plot_regression,
+  ncol = 1,
+  labels = "AUTO"
+)
+
+
+ggsave("output/figure-5.pdf", width = 10, height = 10)

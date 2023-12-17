@@ -89,6 +89,8 @@ df_carillon_profile <- tibble(
   pleasantness_se = bootstrap_se
 )
 
+write_csv(df_carillon_profile, "output/carillon-behavioural-profile.csv")
+
 df_harmonic_reference <- read_csv(
   "input/behavioural-data/reference-data-from-marjieh-et-al/1 - Harmonic dyads (3 dB roll-off).csv", 
   col_types = cols()

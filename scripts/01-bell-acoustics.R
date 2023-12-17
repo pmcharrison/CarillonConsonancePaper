@@ -3,6 +3,10 @@ library(tidyverse)
 library(readxl)
 library(ggridges)
 
+source("src/consonance-utilities.R")
+source("src/import-bell-peaks.R")
+Rcpp::sourceCpp("src/smooth_2d_gaussian.cpp")
+
 theme_set(theme_pubr())
 
 df <- import_bell_peaks()
@@ -72,8 +76,6 @@ bells <- unique(df$Bell)
 
 df_spectra <- 
   map_dfr(bells, get_spectrum, .progress = TRUE)
-
-Rcpp::sourceCpp("../../Analysis/smooth_2d_gaussian.cpp")
 
 smooth_x <- seq(from = 0, to = 7, by = 0.01)
 

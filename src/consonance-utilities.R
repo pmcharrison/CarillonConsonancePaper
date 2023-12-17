@@ -255,7 +255,7 @@ DyadInterferenceModel <- R6Class(
     
     get_consonance = function(midi, timbre) {
       spectrum <- self$get_sparse_fr_spectrum(midi, timbre, coherent = COHERENT_WAVES)
-      - self$get_roughness_from_sparse_fr_spectrum(spectrum)
+      self$get_roughness_from_sparse_fr_spectrum(spectrum)
     },
     
     get_roughness_from_sparse_fr_spectrum = function(spectrum) {

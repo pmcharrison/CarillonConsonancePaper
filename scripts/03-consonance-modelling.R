@@ -191,3 +191,4 @@ cowplot::plot_grid(
 
 
 ggsave("output/figure-5.pdf", width = 10, height = 10)
+ggsave("output/figure-5.png", width = 10, height = 10, dpi = 300)

@@ -116,6 +116,7 @@ cowplot::plot_grid(
 )
 
 ggsave("output/figure-1.pdf", width = 10, height = 6)
+ggsave("output/figure-1.png", width = 10, height = 6, dpi = 300)
 
 
 # Plotting frequencies ####
@@ -212,6 +213,7 @@ cowplot::plot_grid(
 )
 
 ggsave("output/figure-2.pdf", width = 10, height = 4)
+ggsave("output/figure-2.png", width = 10, height = 4, dpi = 300)
 
 
 # Splitting by frequency range
@@ -229,3 +231,4 @@ bind_rows(
   tmp_theme
 
 ggsave("output/figure-3.pdf", width = 10, height = 4)
+ggsave("output/figure-3.png", width = 10, height = 6, dpi = 300)

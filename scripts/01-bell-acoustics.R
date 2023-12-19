@@ -231,4 +231,4 @@ bind_rows(
   tmp_theme
 
 ggsave("output/figure-3.pdf", width = 10, height = 4)
-ggsave("output/figure-3.png", width = 10, height = 6, dpi = 300)
+ggsave("output/figure-3.png", width = 10, height = 4, dpi = 300)

@@ -14,7 +14,7 @@ trials <-
     map_dfr(trials$definition, ~ gsub("'", "\"", .) |> jsonlite::fromJSON() |> as_tibble())
   ) |> 
   select(
-    id, participant_id, creation_time, answer, lower_pitch, upper_pitch, pitch_interval
+    id, participant_id, creation_time, answer, lower_pitch, upper_pitch, pitch_interval, is_repeat_trial
   ) |> 
   # z-score responses within participants, so that the mean is 0 and the standard deviation is 1
   group_by(participant_id) |> 
@@ -22,6 +22,50 @@ trials <-
   ungroup()
 
 x_seq <- seq(from = 0, to = 15, by = 0.01)
+
+stopifnot(!any(is.na(trials$answer)))
+
+participants <-
+  trials |> 
+  group_by(participant_id) |> 
+  summarise(
+    n_trials = n(),
+    n_not_repeat_trials = sum(!is_repeat_trial),
+    n_repeat_trials = sum(is_repeat_trial),
+    completed_all_trials = n_repeat_trials >= 4
+  ) |>
+  left_join(
+    read_csv("input/behavioural-data/carillon-data/data/Participant.csv", col_types = cols()),
+    by = c("participant_id" = "id")
+  ) |> 
+  mutate(
+    vars = map(vars, reticulate::py_eval),
+    age = map_chr(vars, pluck, "age", .default = NA) |> as.numeric(),
+    gender = map_chr(vars, pluck, "gender", .default = NA),
+    musical_training = map_dbl(vars, pluck, "gmsi", "mean_scores_per_scale", "Musical Training", .default = NA)
+  )
+
+participants |> nrow()
+participants |> filter(completed_all_trials) |> nrow()
+
+participants$age |> mean(na.rm = TRUE)
+participants$age |> sd(na.rm = TRUE)
+
+participants$gender |> table()
+
+participants$base_payment
+participants$bonus - participants$performance_bonus
+
+
+mean(lubridate::as_datetime(participants$end_time) - lubridate::as_datetime(participants$creation_time), na.rm = TRUE)
+
+
+
+# PsyNet reports these as mean scores, but according to the 
+# Gold-MSI technical report these should be reported as sum scores.
+# Since there are 7 questions we multiply these by 7
+(participants$musical_training * 7) |> mean(na.rm = TRUE)
+(participants$musical_training * 7) |> sd(na.rm = TRUE)
 
 # Fits a smooth curve to the data.
 # span dictates the degree of smoothing (see ?loess)
@@ -55,6 +99,10 @@ bootstrap_fit_loess <- function(trials, n_boot = 1000) {
 bootstrap_smooths <- bootstrap_fit_loess(trials)
 bootstrap_se <- apply(bootstrap_smooths, 1, sd)
 
+saveRDS(bootstrap_smooths, "output/bootstrap_smooths.rds")
+
+# Major vs minor 3rd ####
+
 major_3rd_index <- which(x_seq == 4)
 minor_3rd_index <- which(x_seq == 3)
 
@@ -81,7 +129,35 @@ ci_95_minor_vs_major_3rd <-
   )
 ci_95_minor_vs_major_3rd
 
-# Plotting
+# Minor sixth vs tritone ####
+
+minor_sixth_index <- which(x_seq == 8)
+tritone_index <- which(x_seq == 6)
+
+minor_sixth_pleasantness <- smooth[minor_sixth_index]
+tritone_pleasantness <- smooth[tritone_index]
+
+# How much more pleasant is the minor 6th than the major 6th?
+tritone_vs_minor_sixth <- tritone_pleasantness - minor_sixth_pleasantness
+tritone_vs_minor_sixth
+
+bootstrap_tritone_vs_minor_sixth <- 
+  bootstrap_smooths[tritone_index, ] - 
+  bootstrap_smooths[minor_sixth_index, ]
+
+mean(bootstrap_tritone_vs_minor_sixth)
+se_tritone_vs_minor_sixth <- sd(bootstrap_tritone_vs_minor_sixth)
+
+# What is the 95% confidence interval for the difference between the
+# minor 6th and the major 6th?
+ci_95_tritone_vs_minor_sixth <- 
+  c(
+    tritone_vs_minor_sixth - 1.96 * se_tritone_vs_minor_sixth,
+    tritone_vs_minor_sixth + 1.96 * se_tritone_vs_minor_sixth
+  )
+ci_95_tritone_vs_minor_sixth
+
+# Plotting ####
 df_carillon_profile <- tibble(
   type = "Carillon",
   pitch_interval = x_seq,
@@ -155,6 +231,8 @@ reliabilities <-
   Filter(function(x) !is.null(x), x = _) |> 
   unlist()
 
+median(reliabilities)
+
 plot_reliabilities <- 
   tibble(reliability = reliabilities) |> 
   ggplot(aes(reliability)) + 
@@ -164,10 +242,10 @@ plot_reliabilities <-
 
 
 cowplot::plot_grid(
-  plot_behavioural_profiles,
   plot_reliabilities,
+  plot_behavioural_profiles,
   nrow = 1,
-  rel_widths = c(8, 4),
+  rel_widths = c(4, 8),
   labels = "AUTO"
 )
 

@@ -88,6 +88,14 @@ model_profiles$value <-
 
 write_csv(model_profiles, "output/model_profiles.csv")
 
+model_profiles |> 
+  filter(model == "roughness") |> 
+  group_by(timbre_type, model) |> 
+  summarise(
+    interval = interval[which.max(value)],
+    value = max(value)
+  )
+
 normalise_to_unit_interval <- function(x) {
   range <- max(x) - min(x)
   (x - min(x)) / range
@@ -146,14 +154,14 @@ df_regression_input <-
   pivot_wider(id_cols = c("interval"), names_from = "model", values_from = "value") %>%
   left_join(carillon_behavioural_profile, by = c("interval" = "pitch_interval")) %>% 
   select(- pleasantness_se) %>% 
-  na.omit() %>% 
   mutate(
     pleasantness = as.numeric(scale(pleasantness)),
     roughness = as.numeric(scale(roughness)),
     harmonicity = as.numeric(scale(harmonicity))
   )
 
-mod <- lm(pleasantness ~ roughness + harmonicity, data = df_regression_input)
+lm_formula <- as.formula("pleasantness ~ roughness + harmonicity")
+mod <- lm(lm_formula, data = df_regression_input)
 summary(mod)
 
 df_regression_predictions <-
@@ -192,3 +200,22 @@ cowplot::plot_grid(
 
 ggsave("output/figure-5.pdf", width = 10, height = 10)
 ggsave("output/figure-5.png", width = 10, height = 10, dpi = 300)
+
+
+bootstrap_smooths <- readRDS("output/bootstrap_smooths.rds")
+n_bootstrap <- ncol(bootstrap_smooths)
+
+boot_coef <- 
+  map_dfr(1:n_bootstrap, function(i) {
+    tmp_df <- df_regression_input |> mutate(pleasantness = bootstrap_smooths[, i])
+    boot_lm <- lm(lm_formula, data = tmp_df)
+    boot_lm |> coef()
+  })
+
+roughness_coef <- coef(mod)["roughness"]
+roughness_sem <- sd(boot_coef$roughness)
+roughness_95_CI <- roughness_coef + 1.96 * roughness_sem * c(-1, 1)
+
+harmonicity_coef <- coef(mod)["harmonicity"]
+harmonicity_sem <- sd(boot_coef$harmonicity)
+harmonicity_95_CI <- harmonicity_coef + 1.96 * harmonicity_sem * c(-1, 1)

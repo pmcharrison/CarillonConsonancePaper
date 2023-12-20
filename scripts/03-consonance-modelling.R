@@ -78,13 +78,61 @@ full_join(
   select(- Partial) |> 
   select(PartialLabel, starts_with("FrequencyRatio"), starts_with("Amplitude")) |> 
   arrange(pmax(FrequencyRatioLower, FrequencyRatioUpper, na.rm = TRUE)) |> 
-  mutate(across(is.numeric, ~ sprintf("%.3f", .))) |> 
+  mutate(across(where(is.numeric), ~ sprintf("%.3f", .))) |> 
   write_csv("output/idealised_bell_spectra_formatted.csv")
+
+harmonic_spectrum <- tibble(
+  i = 0:9,
+  FrequencyRatio = i + 1,
+  omega = 3 * log2(i + 1),
+  Amplitude = 10 ^ (- omega / 20),
+  Tone = "Harmonic tone"
+)
+
+bind_rows(
+  lower_bell_spectrum |> mutate(Tone = "Carillon tone (lower)"),
+  upper_bell_spectrum |> mutate(Tone = "Carillon tone (upper)"),
+) |> 
+  select(FrequencyRatio, Amplitude, Tone) |> 
+  bind_rows(
+    harmonic_spectrum |> select(FrequencyRatio, Amplitude, Tone)
+  ) |> 
+  mutate(
+    Tone = factor(
+      Tone, 
+      levels = c(
+        "Carillon tone (upper)",
+        "Carillon tone (lower)",
+        "Harmonic tone"
+      ))
+  ) |> 
+  ggplot(aes(x = FrequencyRatio, y = 0, xend = FrequencyRatio, yend = Amplitude)) + 
+  geom_segment() + 
+  scale_x_continuous("Frequency ratio", breaks = 1:10) + 
+  scale_y_continuous("Amplitude") + 
+  facet_wrap(~ Tone, ncol = 1)
+
+ggsave("output/idealised-spectra.pdf", width = 10, height = 4)
+ggsave("output/idealised-spectra.png", width = 10, height = 4, dpi = 300)
 
 
 timbres <- list()
 
 timbres$Carillon <- list(
+  lower = CustomTone$new(
+    frequency_ratios = lower_bell_spectrum$FrequencyRatio, 
+    amplitudes = lower_bell_spectrum$Amplitude
+  ),
+  upper = CustomTone$new(
+    frequency_ratios = upper_bell_spectrum$FrequencyRatio, 
+    amplitudes = upper_bell_spectrum$Amplitude
+  )
+)
+
+lower_bell_spectrum_minus_third <- lower_bell_spectrum |> filter(PartialLabel != "Tierce")
+upper_bell_spectrum_minus_third <- upper_bell_spectrum |> filter(PartialLabel != "Tierce")
+
+timbres$CarillonMinusThird <- list(
   lower = CustomTone$new(
     frequency_ratios = lower_bell_spectrum$FrequencyRatio, 
     amplitudes = lower_bell_spectrum$Amplitude
@@ -104,7 +152,7 @@ timbres$Harmonic <- list(
 model_profiles <- 
   expand_grid(
     interval = seq(from = 0, to = 15, by = 0.01),
-    timbre_type = c("Carillon", "Harmonic"),
+    timbre_type = c("Carillon", "CarillonMinusThird", "Harmonic"),
     model = c("roughness", "harmonicity")
 )
 
@@ -133,6 +181,7 @@ normalise_to_unit_interval <- function(x) {
 
 plot_models <- 
   model_profiles |>  
+  filter(timbre_type != "CarillonMinusThird") |> 
   mutate(
     model = recode(
       model,
@@ -181,18 +230,26 @@ df_regression_input <-
   model_profiles %>% 
   filter(timbre_type == "Carillon") %>% 
   select(- timbre_type) %>% 
-  pivot_wider(id_cols = c("interval"), names_from = "model", values_from = "value") %>%
-  left_join(carillon_behavioural_profile, by = c("interval" = "pitch_interval")) %>% 
-  select(- pleasantness_se) %>% 
-  mutate(
-    pleasantness = as.numeric(scale(pleasantness)),
-    roughness = as.numeric(scale(roughness)),
-    harmonicity = as.numeric(scale(harmonicity))
+  pivot_wider(id_cols = c("interval"), names_from = "model", values_from = "value")
+
+stopifnot(
+  all.equal(
+    df_regression_input$interval,
+    carillon_behavioural_profile$pitch_interval
   )
+)
+
+df_regression_input <-
+  df_regression_input |> 
+  bind_cols(carillon_behavioural_profile |> select(- pitch_interval)) |> 
+  select(- pleasantness_se) |> 
+  na.omit()
 
 lm_formula <- as.formula("pleasantness ~ roughness + harmonicity")
 mod <- lm(lm_formula, data = df_regression_input)
 summary(mod)
+
+lm.beta::lm.beta(mod, complete.standardization = TRUE)
 
 df_regression_predictions <-
   df_regression_input %>%
@@ -239,7 +296,7 @@ boot_coef <-
   map_dfr(1:n_bootstrap, function(i) {
     tmp_df <- df_regression_input |> mutate(pleasantness = bootstrap_smooths[, i])
     boot_lm <- lm(lm_formula, data = tmp_df)
-    boot_lm |> coef()
+    boot_lm |> lm.beta::lm.beta(complete.standardization = TRUE)
   })
 
 roughness_coef <- coef(mod)["roughness"]
@@ -249,3 +306,27 @@ roughness_95_CI <- roughness_coef + 1.96 * roughness_sem * c(-1, 1)
 harmonicity_coef <- coef(mod)["harmonicity"]
 harmonicity_sem <- sd(boot_coef$harmonicity)
 harmonicity_95_CI <- harmonicity_coef + 1.96 * harmonicity_sem * c(-1, 1)
+
+
+# df_regression_predictions <-
+#   df_regression_input %>%
+#   mutate(regression = predict(mod, newdata = df_regression_input))
+
+# df_regression_input
+df_regression_minus_third_predictions <-
+  model_profiles |> 
+  filter(timbre_type == "CarillonMinusThird") |>
+  pivot_wider(id_cols = interval, names_from = "model", values_from = "value") %>%
+  mutate(
+    regression = predict(mod, newdata = .),
+    type = "CarillonMinusThird"
+  )
+
+bind_rows(
+  df_regression_predictions,
+  df_regression_minus_third_predictions, #|> mutate(regression = scale(regression))
+) |> 
+  ggplot(aes(interval, regression, linetype = type)) + 
+  geom_line() + 
+  scale_x_continuous("Interval (semitones)", breaks = 1:15)
+  

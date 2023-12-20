@@ -132,14 +132,39 @@ timbres$Carillon <- list(
 lower_bell_spectrum_minus_third <- lower_bell_spectrum |> filter(PartialLabel != "Tierce")
 upper_bell_spectrum_minus_third <- upper_bell_spectrum |> filter(PartialLabel != "Tierce")
 
+lower_bell_spectrum_minus_hum <- lower_bell_spectrum |> filter(PartialLabel != "Hum")
+upper_bell_spectrum_minus_hum <- upper_bell_spectrum |> filter(PartialLabel != "Hum")
+
 timbres$CarillonMinusThird <- list(
   lower = CustomTone$new(
+    frequency_ratios = lower_bell_spectrum_minus_third$FrequencyRatio, 
+    amplitudes = lower_bell_spectrum_minus_third$Amplitude
+  ),
+  upper = CustomTone$new(
+    frequency_ratios = upper_bell_spectrum_minus_third$FrequencyRatio, 
+    amplitudes = upper_bell_spectrum_minus_third$Amplitude
+  )
+)
+
+timbres$CarillonMinusHum <- list(
+  lower = CustomTone$new(
+    frequency_ratios = lower_bell_spectrum_minus_hum$FrequencyRatio, 
+    amplitudes = lower_bell_spectrum_minus_hum$Amplitude
+  ),
+  upper = CustomTone$new(
+    frequency_ratios = upper_bell_spectrum_minus_hum$FrequencyRatio, 
+    amplitudes = upper_bell_spectrum_minus_hum$Amplitude
+  )
+)
+
+timbres$CarillonFlat <- list(
+  lower = CustomTone$new(
     frequency_ratios = lower_bell_spectrum$FrequencyRatio, 
-    amplitudes = lower_bell_spectrum$Amplitude
+    amplitudes = rep(1, times = nrow(lower_bell_spectrum))
   ),
   upper = CustomTone$new(
     frequency_ratios = upper_bell_spectrum$FrequencyRatio, 
-    amplitudes = upper_bell_spectrum$Amplitude
+    amplitudes = rep(1, times = nrow(upper_bell_spectrum))
   )
 )
 
@@ -152,7 +177,7 @@ timbres$Harmonic <- list(
 model_profiles <- 
   expand_grid(
     interval = seq(from = 0, to = 15, by = 0.01),
-    timbre_type = c("Carillon", "CarillonMinusThird", "Harmonic"),
+    timbre_type = names(timbres),
     model = c("roughness", "harmonicity")
 )
 
@@ -181,7 +206,7 @@ normalise_to_unit_interval <- function(x) {
 
 plot_models <- 
   model_profiles |>  
-  filter(timbre_type != "CarillonMinusThird") |> 
+  filter(timbre_type %in% c("Carillon", "Harmonic")) |> 
   mutate(
     model = recode(
       model,
@@ -196,7 +221,7 @@ plot_models <-
   ) |> 
   group_by(model, timbre_type) |> 
   dplyr::mutate(
-    value = normalise_to_unit_interval(value),
+    # value = normalise_to_unit_interval(value),
     colour = case_when(
       timbre_type == "Harmonic tone" ~ "grey40",
       model == "Interference between partials" ~ "#B50000",
@@ -211,7 +236,7 @@ plot_models <-
     colour = colour
   )) + 
   geom_line() + 
-  facet_wrap(~ model, ncol = 1) +
+  facet_wrap(~ model, ncol = 1, scales = "free") +
   scale_colour_identity(NULL) + 
   scale_linewidth_manual(NULL, values = c(0.7, 0.4)) +
   scale_linetype_discrete(NULL) + 
@@ -224,7 +249,7 @@ plot_models <-
   )
 plot_models
 
-carillon_behavioural_profile <- read_csv("output/carillon-behavioural-profile.csv")
+carillon_behavioural_profile <- read_csv("output/carillon-behavioural-profile.csv", col_types = cols())
 
 df_regression_input <- 
   model_profiles %>% 
@@ -242,8 +267,7 @@ stopifnot(
 df_regression_input <-
   df_regression_input |> 
   bind_cols(carillon_behavioural_profile |> select(- pitch_interval)) |> 
-  select(- pleasantness_se) |> 
-  na.omit()
+  select(- pleasantness_se)
 
 lm_formula <- as.formula("pleasantness ~ roughness + harmonicity")
 mod <- lm(lm_formula, data = df_regression_input)
@@ -286,7 +310,7 @@ cowplot::plot_grid(
 
 
 ggsave("output/figure-5.pdf", width = 10, height = 10)
-ggsave("output/figure-5.png", width = 10, height = 10, dpi = 300)
+ggsave("output/figure-5.png", width = 10, height = 10)
 
 
 bootstrap_smooths <- readRDS("output/bootstrap_smooths.rds")
@@ -296,23 +320,18 @@ boot_coef <-
   map_dfr(1:n_bootstrap, function(i) {
     tmp_df <- df_regression_input |> mutate(pleasantness = bootstrap_smooths[, i])
     boot_lm <- lm(lm_formula, data = tmp_df)
-    boot_lm |> lm.beta::lm.beta(complete.standardization = TRUE)
+    lm.beta::lm.beta(boot_lm, complete.standardization = TRUE)$standardized.coefficients
   })
 
-roughness_coef <- coef(mod)["roughness"]
+roughness_coef <- lm.beta::lm.beta(mod, complete.standardization = TRUE)$standardized.coefficients["roughness"]
 roughness_sem <- sd(boot_coef$roughness)
 roughness_95_CI <- roughness_coef + 1.96 * roughness_sem * c(-1, 1)
 
-harmonicity_coef <- coef(mod)["harmonicity"]
+harmonicity_coef <- lm.beta::lm.beta(mod, complete.standardization = TRUE)$standardized.coefficients["harmonicity"]
 harmonicity_sem <- sd(boot_coef$harmonicity)
 harmonicity_95_CI <- harmonicity_coef + 1.96 * harmonicity_sem * c(-1, 1)
 
 
-# df_regression_predictions <-
-#   df_regression_input %>%
-#   mutate(regression = predict(mod, newdata = df_regression_input))
-
-# df_regression_input
 df_regression_minus_third_predictions <-
   model_profiles |> 
   filter(timbre_type == "CarillonMinusThird") |>
@@ -326,7 +345,22 @@ bind_rows(
   df_regression_predictions,
   df_regression_minus_third_predictions, #|> mutate(regression = scale(regression))
 ) |> 
+  mutate(
+    type = recode_factor(
+      type,
+      CarillonMinusThird = "Carillon (minus tierce)",
+      Carillon = "Carillon",
+    )
+  ) |> 
   ggplot(aes(interval, regression, linetype = type)) + 
   geom_line() + 
-  scale_x_continuous("Interval (semitones)", breaks = 1:15)
-  
+  scale_x_continuous("Interval (semitones)", breaks = 0:15) +
+  scale_y_continuous("Consonance (predicted)") +
+  scale_linetype_discrete(NULL) +
+  theme(
+    legend.position = c(0.2, 0.95),
+    legend.direction = "vertical"
+  )
+
+ggsave("output/carillon-minus-tierce.pdf", width = 10, height = 4)
+ggsave("output/carillon-minus-tierce.png", width = 10, height = 4)

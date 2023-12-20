@@ -46,11 +46,41 @@ get_representative_spectrum <- function(midi_range) {
       Amplitude = mean(Amplitude),
     )
   
-  representative_spectrum
+  f0_amplitude <- 
+    representative_spectrum |> 
+    filter(Partial == 1) |> 
+    pull(Amplitude)
+  
+  partial_labels <- read_csv("output/partial_labels.csv", col_types = cols()) |> 
+    mutate(Partial = as.numeric(Partial))
+  
+  representative_spectrum <-
+    representative_spectrum |> 
+    mutate(
+      Amplitude = Amplitude / f0_amplitude,
+      Partial = as.numeric(as.character(Partial))
+    ) |> 
+    left_join(partial_labels, by = "Partial")
 }
 
 lower_bell_spectrum <- get_representative_spectrum(c(65, 67)) |> na.omit()
 upper_bell_spectrum <- get_representative_spectrum(c(65, 82)) |> na.omit()
+
+write_csv(lower_bell_spectrum, "output/lower_bell_spectrum.csv")
+write_csv(upper_bell_spectrum, "output/upper_bell_spectrum.csv")
+
+full_join(
+  lower_bell_spectrum |> select(- PartialLabel),
+  upper_bell_spectrum,
+  by = "Partial",
+  suffix = c("Lower", "Upper")
+) |> 
+  select(- Partial) |> 
+  select(PartialLabel, starts_with("FrequencyRatio"), starts_with("Amplitude")) |> 
+  arrange(pmax(FrequencyRatioLower, FrequencyRatioUpper, na.rm = TRUE)) |> 
+  mutate(across(is.numeric, ~ sprintf("%.3f", .))) |> 
+  write_csv("output/idealised_bell_spectra_formatted.csv")
+
 
 timbres <- list()
 

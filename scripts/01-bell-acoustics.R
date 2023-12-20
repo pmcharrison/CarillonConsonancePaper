@@ -28,6 +28,9 @@ partial_labels <- tribble(
 ) |> 
   add_column()
 
+write_csv(partial_labels, "output/partial_labels.csv")
+
+
 # Plotting an example spectrum
 
 df_f0 <- df |> filter(Partial == 1) |> select(Bell, Frequency) |> mutate(Frequency = Frequency )

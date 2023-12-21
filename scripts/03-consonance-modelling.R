@@ -112,8 +112,8 @@ bind_rows(
   scale_y_continuous("Amplitude") + 
   facet_wrap(~ Tone, ncol = 1)
 
-ggsave("output/idealised-spectra.pdf", width = 10, height = 4)
-ggsave("output/idealised-spectra.png", width = 10, height = 4, dpi = 300)
+ggsave("output/figure-4.pdf", width = 10, height = 4)
+ggsave("output/figure-4.png", width = 10, height = 4, dpi = 300)
 
 
 timbres <- list()
@@ -309,8 +309,8 @@ cowplot::plot_grid(
 )
 
 
-ggsave("output/figure-5.pdf", width = 10, height = 10)
-ggsave("output/figure-5.png", width = 10, height = 10)
+ggsave("output/figure-6.pdf", width = 10, height = 10)
+ggsave("output/figure-6.png", width = 10, height = 10)
 
 
 bootstrap_smooths <- readRDS("output/bootstrap_smooths.rds")
@@ -362,5 +362,5 @@ bind_rows(
     legend.direction = "vertical"
   )
 
-ggsave("output/carillon-minus-tierce.pdf", width = 10, height = 4)
-ggsave("output/carillon-minus-tierce.png", width = 10, height = 4)
+ggsave("output/figure-7.pdf", width = 10, height = 4)
+ggsave("output/figure-7.png", width = 10, height = 4)

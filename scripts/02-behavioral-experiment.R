@@ -249,5 +249,5 @@ cowplot::plot_grid(
   labels = "AUTO"
 )
 
-ggsave("output/figure-4.pdf", width = 10, height = 4)
-ggsave("output/figure-4.png", width = 10, height = 4, dpi = 300)
+ggsave("output/figure-5.pdf", width = 10, height = 4)
+ggsave("output/figure-5.png", width = 10, height = 4, dpi = 300)

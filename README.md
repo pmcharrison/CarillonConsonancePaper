@@ -2,7 +2,7 @@
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/pmcharrison/CarillonConsonancePaper/HEAD)
 
-This repository contains supporting code for the manuscript 'The consonance of the carillon' 
+This repository contains supporting code for the manuscript 'Consonance in the carillon' 
 by Peter M. C. Harrison and James M. C. MacConnachie.
 To run this code locally, download the repository and open it as an R project
 in RStudio. You should be prompted to install the dependencies via renv.

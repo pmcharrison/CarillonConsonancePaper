@@ -221,8 +221,9 @@ ggsave("output/figure-2.png", width = 10, height = 4, dpi = 300)
 
 # Splitting by frequency range
 bind_rows(
-  df |> filter(F0 < 320) |> summarise_amplitudes() |> add_column(range = "F0 < 320 Hz"),
-  df |> filter(F0 > 320) |> summarise_amplitudes() |> add_column(range = "F0 > 320 Hz"),
+  df |> filter(136 < F0, F0 < 260) |> summarise_amplitudes() |> add_column(range = "135 Hz < F0 < 260 Hz"),
+  df |> filter(260 < F0, F0 < 520) |> summarise_amplitudes() |> add_column(range = "260 Hz < F0 < 520 Hz"),
+  df |> filter(520 < F0, F0 < 2435) |> summarise_amplitudes() |> add_column(range = "520 Hz < F0 < 2435 Hz"),
 ) |> 
   ggplot(aes(x = Partial, y = amplitude_mean, ymin = amplitude_mean - amplitude_se, ymax = amplitude_mean + amplitude_se)) + 
   geom_bar(stat = "identity", fill = "white", colour = "black") + 

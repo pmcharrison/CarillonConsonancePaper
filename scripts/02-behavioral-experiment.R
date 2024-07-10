@@ -246,7 +246,7 @@ cowplot::plot_grid(
   plot_behavioural_profiles,
   nrow = 1,
   rel_widths = c(4, 8),
-  labels = "AUTO"
+  labels = "auto"
 )
 
 ggsave("output/figure-5.pdf", width = 10, height = 4)

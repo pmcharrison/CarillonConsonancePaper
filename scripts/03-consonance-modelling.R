@@ -305,7 +305,7 @@ cowplot::plot_grid(
   plot_models,
   plot_regression,
   ncol = 1,
-  labels = "AUTO"
+  labels = "auto"
 )
 
 

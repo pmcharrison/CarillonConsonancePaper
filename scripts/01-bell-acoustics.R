@@ -115,7 +115,7 @@ cowplot::plot_grid(
   plot_all_spectra,
   ncol = 1,
   scale = 0.94,
-  labels = "AUTO"
+  labels = "auto"
 )
 
 ggsave("output/figure-1.pdf", width = 10, height = 6)
